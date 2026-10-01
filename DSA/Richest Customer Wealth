@@ -1,0 +1,12 @@
+class Solution(object):
+    def maximumWealth(self, accounts):
+        max = 0
+
+        for i in accounts:
+            total = sum(i)
+
+            if total > max:
+                max = total
+        
+        return max
+        

@@ -1,0 +1,9 @@
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        set1 = set(nums1)
+        result = []
+        for i in nums2:
+            if i in set1:
+                result.append(i)
+                set1.remove(i)
+        return result

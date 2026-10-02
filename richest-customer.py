@@ -1,3 +1,6 @@
+'''Running sum of array'''
+'''https://leetcode.com/problems/richest-customer-wealth/'''
+
 class Solution(object):
     def maximumWealth(self, accounts):
         maxi = 0

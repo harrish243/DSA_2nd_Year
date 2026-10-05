@@ -1,16 +1,16 @@
-nums = [2, 5, 1, 3, 4, 7]
-n = 3
+class Solution(object):
+    def kidsWithCandies(self, candies, extraCandies):
+        """
+        :type candies: List[int]
+        :type extraCandies: int
+        :rtype: List[bool]
+        """
+        Output=[]
+        max_candies=max(candies)
 
-output = []
-
-left = 0
-right = n
-
-while right < len(nums):
-    output.append(nums[left])
-    output.append(nums[right])
-
-    left += 1
-    right += 1
-
-print(output)
+        for num in candies:
+            if num+extraCandies>=max_candies:
+                Output.append(True)
+            else:
+                Output.append(False)
+        return Output

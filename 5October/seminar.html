@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button DOM Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid black;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button DOM Events</h1>
+    <p>Interact with the button and observe the events.</p>
+
+    <button id="myButton">
+        Interact With Me
+    </button>
+
+    <div id="output">
+        Waiting for an event...
+    </div>
+    <script>
+
+        // Get the button and output elements
+        const button = document.getElementById("myButton");
+        const output = document.getElementById("output");
+
+        // Function to display the event
+        function showEvent(eventName) {
+
+            output.innerHTML =
+                "Event triggered: <strong>" + eventName + "</strong>";
+
+        }
+        // CLICK EVENT
+        button.addEventListener("click", function() {
+
+            showEvent("click");
+
+        });
+
+        // DOUBLE CLICK EVENT
+        button.addEventListener("dblclick", function() {
+
+            showEvent("dblclick");
+
+        });
+
+        // MOUSE DOWN EVENT
+        button.addEventListener("mousedown", function() {
+
+            showEvent("mousedown");
+
+        });
+
+        // MOUSE UP EVENT
+        button.addEventListener("mouseup", function() {
+
+            showEvent("mouseup");
+
+        });
+
+        // MOUSE ENTER EVENT
+        button.addEventListener("mouseenter", function() {
+
+            showEvent("mouseenter");
+
+        });
+
+        // MOUSE LEAVE EVENT
+        button.addEventListener("mouseleave", function() {
+
+            showEvent("mouseleave");
+
+        });
+
+    </script>
+
+</body>
+</html>

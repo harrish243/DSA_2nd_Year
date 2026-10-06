@@ -3,7 +3,7 @@ name: Generate Sorted README
 on:
   push:
     branches:
-      seshan  
+    - seshan  
 
 jobs:
   build:

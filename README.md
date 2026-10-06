@@ -1,1 +1,7 @@
-# DSA_2nd_Year
+# 📚 DSA Solutions (Newest → Oldest)
+
+| # | Date Solved | Problem |
+|---|-------------|---------|
+| 1 | 2026-10-06 | 1732. Find the Highest Altitude |
+| 2 | 2026-10-05 | 1470. Shuffle the Array |
+| 3 | 2026-10-05 | 1431. Kids With the Greatest Number of Candies |

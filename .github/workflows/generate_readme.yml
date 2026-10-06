@@ -1,0 +1,61 @@
+name: Generate Sorted README
+
+on:
+  push:
+    branches:
+      seshan  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0   # important: gets full git history
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Generate README
+        run: |
+          python3 - <<'EOF'
+          import subprocess
+
+          result = subprocess.run(
+              ['git', 'log', '--diff-filter=A', '--name-only', '--pretty=format:COMMIT|%ad', '--date=short'],
+              capture_output=True, text=True
+          )
+
+          entries = []
+          current_date = ""
+
+          for line in result.stdout.splitlines():
+              if line.startswith("COMMIT|"):
+                  current_date = line.split("|")[1]
+              elif line.strip().endswith(".py"):
+                  entries.append((current_date, line.strip()))
+
+          entries.sort(key=lambda x: x[0], reverse=True)
+
+          with open("README.md", "w") as f:
+              f.write("# 📚 DSA Solutions (Newest → Oldest)\n\n")
+              f.write("| # | Date Solved | Problem |\n")
+              f.write("|---|-------------|---------|\n")
+              for i, (date, filename) in enumerate(entries, 1):
+                  name = filename.replace("_", " ").replace(".py", "")
+                  f.write(f"| {i} | {date} | {name} |\n")
+
+          print("✅ README generated!")
+          EOF
+
+      - name: Commit and Push README
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "🤖 Auto-update README"
+          git push

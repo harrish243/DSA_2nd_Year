@@ -1,0 +1,15 @@
+class Solution(object):
+    def pivotIndex(self, nums):
+         rightsum=sum(nums)
+         leftsum=0
+
+         for i in range (len(nums)):
+            rightsum=rightsum - nums[i]
+
+            if leftsum == rightsum:
+                return i
+            
+
+            leftsum = leftsum + nums[i]
+         return -1
+            

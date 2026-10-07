@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0   # important: gets full git history
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -50,7 +50,7 @@ jobs:
               f.write("|---|-------------|---------|\n")
               for i, (date, filename) in enumerate(entries, 1):
                   name = filename.replace("_", " ").replace(".py", "")
-                  f.write(f"| {i} | {date} | {name} |\n")
+                  f.write(f"| {i} | {date} | [{name}]({filename}) |\n")  # ← changed
 
           print("✅ README generated!")
           EOF

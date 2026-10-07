@@ -27,6 +27,8 @@ jobs:
         run: |
           python3 - <<'EOF'
           import subprocess
+          import os
+          import urllib.parse
 
           result = subprocess.run(
               ['git', 'log', '--diff-filter=A', '--name-only', '--pretty=format:COMMIT|%ad', '--date=short'],
@@ -40,7 +42,10 @@ jobs:
               if line.startswith("COMMIT|"):
                   current_date = line.split("|")[1]
               elif line.strip().endswith(".py"):
-                  entries.append((current_date, line.strip()))
+                  filename = line.strip()
+                  # FIX 1: Only keep files that still exist (ignores moved/deleted files)
+                  if os.path.exists(filename):
+                      entries.append((current_date, filename))
 
           entries.sort(key=lambda x: x[0], reverse=True)
 
@@ -49,8 +54,13 @@ jobs:
               f.write("| # | Date Solved | Problem |\n")
               f.write("|---|-------------|---------|\n")
               for i, (date, filename) in enumerate(entries, 1):
-                  name = filename.replace("_", " ").replace(".py", "")
-                  f.write(f"| {i} | {date} | [{name}]({filename}) |\n")  # ← changed
+                  # Clean name (removes folder path and .py)
+                  name = filename.split("/")[-1].replace("_", " ").replace(".py", "")
+                  
+                  # FIX 2: URL encode spaces so the link doesn't break
+                  safe_url = urllib.parse.quote(filename)
+                  
+                  f.write(f"| {i} | {date} | [{name}]({safe_url}) |\n")
 
           print("✅ README generated!")
           EOF

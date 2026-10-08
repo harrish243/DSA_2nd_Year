@@ -1,0 +1,16 @@
+# 724
+
+#Input: nums = [1,7,3,6,5,6]
+#Output: 3
+
+class Solution(object):
+    def pivotIndex(self, nums):
+
+        for i in range(len(nums)):
+            sumleft = sum(nums[:i])
+            sumryt = sum(nums[i+1:])
+
+            if sumleft == sumryt:
+                return i
+
+        return -1
